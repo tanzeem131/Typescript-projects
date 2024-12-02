@@ -188,11 +188,10 @@ class Employee extends User {
  * 2.types have union and intersection
  */
 
-/// Interfaces vs types
+// Interfaces vs types
 // Create two types called User and Admin,
 // Create a function that takes either a user or an admin as an input, and returns a string saying "Welcome, [name]".
 /**
- 
 interface User {
     name: string;
     age: number;
@@ -217,7 +216,7 @@ greet({ name: "Harkirat", permissions: "Admin" });
 /**
  * Array in typescript
  * problem:filter out the user having age greater than 18
- */
+
 interface User {
   name: string;
   age: number;
@@ -235,3 +234,77 @@ const filteredUsers = filterAge([
 ]);
 
 console.log(filteredUsers);
+*/
+
+/**Generics
+ *
+ *
+ */
+/**Problem Statement
+Let’s say you have a function that needs to return the first element of an array. Array can be of type either string or integer.
+How would you solve this problem? 
+function getFirstName(arr: (string | number)[]) {
+  return arr[0];
+}
+const result = getFirstName([1, 2, 3]);
+console.log(result);
+
+//but homgenity is breaking in array in below example which could lead to bug,error etc
+function getFirstName(arr: (string | number)[]) {
+  return arr[2];
+}
+const result = getFirstName([1, 2, "3"]);
+console.log(result);
+
+function getFirstName<T>(arr: T[]) {
+  return arr[0];
+}
+//const result = getFirstName<string>(["Tanzeem",2]);//Generic will not allow number 2
+const result = getFirstName<string>(["Tanzeem", "John"]);
+console.log(result.toLowerCase());
+*/
+
+/**
+ *
+ *
+ *
+ *
+ *
+ */
+/**Typescript Advance API's*/
+/**
+ * 1.Pick
+//Pick allows you to create a new type by selecting a set of properties (Keys) from an existing type (Type).
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  createdAt: Date;
+}
+
+// For a profile display, only pick `name` and `email`
+type UserProfile = Pick<User, "name" | "email">;
+
+const displayUserProfile = (user: UserProfile) => {
+  console.log(`Name: ${user.name}, Email: ${user.email}`);
+};
+
+*2.Partial(?)
+//Partial makes all properties of a type optional, creating a type with the same properties, but each marked as optional.
+interface User {
+    id: string;
+    name: string;
+    age: string;
+    email: string;
+    password: string;
+};
+
+type UpdateProps = Pick<User, 'name' | 'age' | 'email'>
+
+type UpdatePropsOptional = Partial<UpdateProps>
+
+function updateUser(updatedProps: UpdatePropsOptional) {
+    // hit the database tp update the user
+}
+updateUser({})
+*/
