@@ -74,17 +74,18 @@ showUserName(user);
 */
 
 /**Types: Very similar to interfaces , types let you aggregate data together. */
-/**UNION
- type StringOrNumber = string | number;
- function printId(id: StringOrNumber) {
-   console.log(`Id:${id}`);
- }
- 
- printId(100);
- printId("101"); 
- */
-/**INTERSECTION
 
+/**UNION
+type StringOrNumber = string | number;
+function printId(id: StringOrNumber) {
+  console.log(`Id:${id}`);
+}
+
+printId(100);
+printId("101"); 
+*/
+
+/**INTERSECTION
 type Employee = {
   name: string;
   startDate: Date;
@@ -93,6 +94,144 @@ type ManagerLead = {
   name: string;
   department: string;
 };
-
 type TeamLead = Employee & ManagerLead;
+
+const teamLead: TeamLead = {
+  name: "Tanzeem",
+  startDate: new Date(),
+  department: "Software developer"
+};
 */
+
+/**
+ // 1.Implementing Interface using variable
+ interface People {
+    name: string;
+    age: number;
+    greet: () => string;
+    }
+    
+    let person: People = {
+    name: "Tanzeem",
+    age: 22,
+    greet: () => {
+        return "Hi";
+    },
+};
+
+let greetings = person.greet();
+console.log(greetings);
+*/
+
+/**
+//2. Implement interfaces using class
+interface People {
+    name: string;
+    age: number;
+    isLegal: () => boolean;
+}
+
+class Manager implements People {
+    //   name: string;
+    //   age: number;
+    //   constructor(name: string, age: number) {
+        //     this.name = name;
+        //     this.age = age;
+        //   }
+        //Both have same thing
+        constructor(public name: string, public age: number) {}
+        isLegal() {
+            return this.age > 18;
+        };
+    }
+    
+    class God extends Manager {
+        constructor(name: string, age: number) {
+            super(name, age);
+        }
+    }
+*/
+
+/**
+ * Abstract class have default funtion call while interface does not have default function call
+ */
+/**
+ 
+abstract class User {
+    name: string;
+    constructor(name: string) {
+        this.name = name;
+    }
+    
+    abstract greet(): string;
+    hello() {
+        console.log("Hi there");
+    }
+}
+
+class Employee extends User {
+    name: string;
+    constructor(name: string) {
+        super(name);
+        this.name = name;
+    }
+    
+    greet() {
+        return "Hi" + this.name;
+    }
+}
+*/
+
+/**
+ * Difference between type and interface----->
+ * 1.we can implement interface in class but type does not.
+ * 2.types have union and intersection
+ */
+
+/// Interfaces vs types
+// Create two types called User and Admin,
+// Create a function that takes either a user or an admin as an input, and returns a string saying "Welcome, [name]".
+/**
+ 
+interface User {
+    name: string;
+    age: number;
+}
+
+interface Admin {
+    name: string;
+    permissions: string;
+}
+
+type UserOrAdmin = User | Admin;
+
+function greet(user: UserOrAdmin) {
+    console.log("Welcome " + user.name);
+}
+
+greet({ name: "Tanzeem", age: 22 });
+greet({ name: "Harkirat", permissions: "Admin" });
+
+*/
+
+/**
+ * Array in typescript
+ * problem:filter out the user having age greater than 18
+ */
+interface User {
+  name: string;
+  age: number;
+}
+
+function filterAge(users: User[]) {
+  return users.filter((user) => user.age > 18);
+}
+
+const filteredUsers = filterAge([
+  {
+    name: "Tanzeem",
+    age: 22,
+  },
+]);
+
+console.log(filteredUsers);
